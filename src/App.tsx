@@ -1,22 +1,18 @@
 import * as React from 'react';
 import './App.css';
 
-import logo from './logo.svg';
+import AppHeader from './components/Header/AppHeader';
+import OurProducts from './components/Products/OurProducts';
+import AddProductToCard from './components/ShoppingCart/CommonShoppingCart/AddProductToCart';
 
-class App extends React.Component {
-  public render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
-}
+const App = () => (
+    <div className="App">
+        <AppHeader />
+        <div className="App-body">
+          <AddProductToCard />
+          <OurProducts />
+        </div>
+    </div>
+);
 
 export default App;
