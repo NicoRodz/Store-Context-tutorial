@@ -2,3 +2,15 @@
     height: 30px;
     color: #fff;
 }
+
+.products-count-badge {
+    position: absolute;
+    right: 25px;
+    top: 30px;
+    font-size: 12px;
+    background-color: green;
+    padding: 3px;
+    height: 10px;
+    min-width: 10px;
+    border-radius: 10px;
+}
