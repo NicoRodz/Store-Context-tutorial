@@ -11,8 +11,8 @@ const App = () => (
         <div className="App">
             <AppHeader />
             <div className="App-body">
-              <AddProductToCard />
-              <OurProducts />
+                <AddProductToCard />
+                <OurProducts />
             </div>
         </div>
     </AppContextProvider>
