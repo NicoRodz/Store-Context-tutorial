@@ -39,6 +39,12 @@
 
 .App-body {
   margin: 20px;
+  display: flex;
+  flex-direction: row;
+}
+
+.app-body-container {
+  flex: 1
 }
 
 @keyframes App-logo-spin {
