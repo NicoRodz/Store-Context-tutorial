@@ -4,17 +4,19 @@ import availableProducts from 'src/Assets/json/availableProducts.json';
 import { IProduct } from 'src/types/Products';
 
 const INITIAL_STATE = {
-    addProductToCart: (productId: number) => null,
+    addProductToCart: (productId: string) => null,
+    availableProductsForUser: [],
     products: [],
-    removeProductFromCart: (productId: number) => null,
+    removeProductFromCart: (productId: string) => null,
     shoppingCart: [],
 }
 export const AppContext = React.createContext<IAppContext>(INITIAL_STATE)
 
-type ActionOverProduct = (productId: number) => void;
+type ActionOverProduct = (productId: string) => void;
 interface IAppContextState {
     products: IProduct[]
     shoppingCart: IProduct[]
+    availableProductsForUser: IProduct[]
 }
 interface IAppContext extends IAppContextState {
     addProductToCart: ActionOverProduct;
@@ -35,12 +37,28 @@ const AppContextProvider = ({children}: IAppContextProvider) => {
         }, 2000)
     }, []);
 
-    function _addProductToCart(productId: number) {
-        return null;
+    function _addProductToCart(productId: string) {
+        const itemIndex = appState.shoppingCart.findIndex((item)=> item.id === productId)
+
+        if (itemIndex === -1) {
+            const product = appState.products.find((item) => item.id === productId);
+            if (product) {
+                const newShoppingCart = appState.shoppingCart;
+                newShoppingCart.push(product)
+                setAppState((prevState) => ({
+                    ...prevState,
+                    shoppingCart: newShoppingCart,
+                }))
+            }
+        }
     }
 
-    function _removeProductFromCart(productId: number) {
-        return null;
+    function _removeProductFromCart(productId: string) {
+        const newCart = appState.shoppingCart.filter((item) => item.id !== productId);
+        setAppState((prevState) => ({
+            ...prevState,
+            shoppingCart: newCart
+        }))
     }
 
     const availableActions = {
@@ -48,11 +66,16 @@ const AppContextProvider = ({children}: IAppContextProvider) => {
         removeProductFromCart: _removeProductFromCart,
     }
 
+
+    const userProductsIds = appState.shoppingCart.map(product => product.id)
+    const availableProductsForUser = appState.products.filter((product) => !userProductsIds.includes(product.id))
+
     return (
         <AppContext.Provider
             value={{
                 ...appState,
                 ...availableActions,
+                availableProductsForUser
             }}
         >
             {children}

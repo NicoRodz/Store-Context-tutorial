@@ -1,4 +1,5 @@
 import React from 'react';
+import '../products.css';
 
 interface ICommonProduct {
     id: string;
@@ -13,9 +14,12 @@ const CommonProduct = ({id, title, description, onClickProduct}:ICommonProduct) 
     }
 
     return (
-        <div onClick={handleOnClick}>
-            <h3>{title}</h3>
-            {description && <p>{description}</p>}
+        <div
+            onClick={handleOnClick}
+            className="common-product-container"
+        >
+            <div className="product-title">{title}</div>
+            {description && <div className="product-description">{description}</div>}
         </div>
     )
 }
